@@ -1,0 +1,108 @@
+@charset "utf-8";
+/* CSS Document */
+	body, h1, h2, h3 {
+		font-family:Verdana, Geneva, sans-serif; margin:0px; padding:0px;	
+	}
+	
+	
+	div#wrapper {
+		width:80%; margin-left:10%; 
+		margin-top:30px;
+	}
+	div#header_top {
+		background-color:#000;
+		height:160px;	
+	}
+	div#header_top img {
+		margin-left:10px; margin-top:10px; float:left;
+	}
+	div#header_top h2 {
+		margin-left:40px; float:left; color:#f6eb13; font-weight:normal; margin-top:115px; font-size:24px;
+	}
+	div#header_strap {
+		background-color:#fff; width:100%; text-align:center; padding:10px; float:none;
+	}
+	div#header_strap h3 {
+		font-size:26px;	font-weight:normal;
+	}
+	
+	
+	div#menu {
+		width:100%; background-color:#000; float:none; height:auto; margin:0px; 
+		padding-top:10px; padding-bottom:10px;
+	}
+	div#menu ul {
+		background-color:#000; list-style:none; margin:0px; padding:0px;
+	}
+	div#menu li {
+		margin-left:30px; color:#f6eb13; display: inline-block; font-size:24px;
+	}
+	div#menu li a {
+		text-decoration:none; color:#f6eb13;
+	}
+	
+	div#page_content {
+		padding:20px;
+	}
+
+	div#stages ul#legs li {
+		display:list-item; margin-bottom:15px; padding:10px; list-style:none;
+	}
+	
+	div#stages ul#legs li:hover {
+		background-color:#f6eb13; list-style:outside;
+	}
+	
+	div#stages ul#legs li.active {
+		background-color:#f6eb13; list-style:outside;
+	}
+	
+	div#stages ul#legs li a {
+		color:#000;
+	}
+	
+	div#stages, div#stage_content {
+		display:table-cell;
+	}
+
+	div#stages {
+		background-color:#edeab9; width:300px;
+	}
+	div#stages a {
+		text-decoration: none;
+	}
+	
+	div#stage_content {
+		padding-left:20px; width:800px;
+	}
+	
+	
+	div#stage_title {
+		margin-bottom:20px;
+	}
+	div#stage_text {
+		padding:10px;
+	}
+	
+	div#stage_chart {
+		text-align:center; width:800px;
+	}
+	div#stage_chart a {
+		text-decoration:none; color:#000; font-weight:bold; font-size:12pt;
+	}
+
+	div#stage_content p {
+		width:800px;
+	}
+	
+	
+	table { border:0px; margin:0px; padding:0px;}
+	th, td {
+		padding-right:25px; padding-left:10px; padding-top:5px; padding-bottom:5px;;	
+	}
+	td.cen {
+		text-align:center;
+	}
+	tr.odd {
+		background-color:#f2ec6d;
+	}
