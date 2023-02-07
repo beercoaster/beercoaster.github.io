@@ -41,6 +41,12 @@
 		text-decoration:none; color:#f6eb13;
 	}
 	
+	div#footer {
+		width:100%; background-color:#000; float:none; height:auto; margin:0px;
+		margin-top:30px;
+		padding-top:10px; padding-bottom:10px; 
+	}
+	
 	div#page_content {
 		padding:20px;
 	}
@@ -84,10 +90,10 @@
 		padding:10px;
 	}
 	
-	div#stage_chart {
-		text-align:center; width:800px;
+	div.stage_chart {
+		text-align:center; width:800px; margin-top:50px; border-top:1px solid #000; padding-top:20px;
 	}
-	div#stage_chart a {
+	div.stage_chart a {
 		text-decoration:none; color:#000; font-weight:bold; font-size:12pt;
 	}
 
