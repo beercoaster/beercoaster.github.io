@@ -7,10 +7,12 @@
 
 <script src="/js/general.js"></script>
 <script type="text/javascript">
+/*
 var chartSrc = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQc30lSC_EC9jZHv3Ihojygsd1N-5XTE5xFE8k_xhDkGP-3E52suASlBToCw8pY0NHJRO3rbGccsdly/pub?gid=1351934654&single=true&output=csv";
 var target = "results_ew";
  csvLoad(chartSrc, target);
 // pLoad(chartSrc);
+*/
 </script>
 
 <link rel="stylesheet" href="/css/base.css" type="text/css"/>
@@ -72,27 +74,39 @@ var target = "results_ew";
             <div id="stage_map">
             	<iframe src="https://www.google.com/maps/d/embed?mid=1fkMW68OkwYlKo7zDXjxYWmK_f8SV084&ehbc=2E312F" width="800" height="480"></iframe>
             </div>
-            <div id="stage_chart"><img src="img/Marsden_Manchester.jpg" width="800" height="190" alt="chart" /><br/>
-            	<a href="https://drive.google.com/file/d/1h_rwHEfxkzyS4xx77LyKM63h-KZSdKeO/view?usp=sharing">Download GPX file</a></div>
             
             <div id="stage_text">
             	<p>I'm baby brunch butcher hot chicken yr woke. Pickled artisan hell of, asymmetrical food truck bodega boys swag shaman +1 activated charcoal woke ethical disrupt literally. Before they sold out butcher mumblecore, dreamcatcher pop-up vape gastropub edison bulb hoodie shaman lomo wayfarers big mood snackwave. Cornhole migas semiotics before they sold out lomo humblebrag microdosing craft beer bicycle rights coloring book deep v portland.</p>
 				<p>Vegan DSA retro banjo skateboard mixtape. Trust fund godard gochujang, PBR&B gentrify umami la croix meggings lo-fi meh normcore. Kickstarter sartorial yuccie wayfarers cray hot chicken. Pabst kickstarter brunch adaptogen vape, live-edge mustache. Bespoke authentic tilde truffaut paleo migas. Gluten-free shaman hashtag, flannel listicle try-hard fixie tonx fashion axe drinking vinegar trust fund fit.</p>
 				<p>Mustache crucifix cardigan pickled next level before they sold out yr lomo vibecession plaid kinfolk salvia green juice prism yes plz. Franzen scenester JOMO chicharrones hell of edison bulb. Biodiesel chambray XOXO yuccie same mumblecore. DIY helvetica kickstarter intelligentsia af vaporware deep v retro blog hell of. YOLO mustache kinfolk umami bicycle rights pok pok sustainable hot chicken edison bulb same, pabst cornhole kickstarter distillery.</p>
+            </div>         
+               
+            <div class="stage_chart">
+            	<h2>West to East: Marsden to Manchester</h2>
+            	<img src="img/Marsden_Manchester.jpg" width="800" height="190" alt="chart" /><br/>
+            	<a href="https://drive.google.com/file/d/1h_rwHEfxkzyS4xx77LyKM63h-KZSdKeO/view?usp=sharing" target="_blank">Download GPX file</a>
+            </div>
+            <div class="stage_results">
+                <div id="results_we">west to east results</div>
             </div>
             
-            <div id="stage_results">
-            	<div id="results_ew">
-                
-                </div>
-                <div id="results_we"> west to east results </div>
+            
+            <div class="stage_chart">
+            	<h2>East to West: Manchester to Marsden</h2>
+            	<img src="img/Manchester_Marsden.jpg" width="800" height="190" alt="chart" /><br/>
+            	<a href="https://drive.google.com/file/d/1dT3vrBw3a9zvT2NaTR8AQsVpgC5oEc9q/view?usp=sharing" target="_blank">Download GPX file</a>
+            </div>
+            <div class="stage_results">
+            	<div id="results_ew">east to west results</div>
+
             </div>
         
         </div>
 
     </div>
 
-
+	<div id="footer">
+    </div>
 
 </div>
 </body>
