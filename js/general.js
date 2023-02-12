@@ -177,7 +177,7 @@ function prepRes(csvRow) {
 	var workSecond = (workStart/resElevation);
 	console.log("workSecond: " + workSecond);
 	var resScore = (workSecond*1000);
-	console.log("workScore: " + workScore);
+	console.log("resScore: " + resScore);
 	
 	
 	/*
@@ -188,7 +188,7 @@ function prepRes(csvRow) {
 
 	newObj.DAT = datResult;
 	*/
-	newObj.BCScore = workScore;
+	newObj.BCScore = resScore;
 	// now put the associated data into an array, with the DAT time as its index
 	// change this to check that there's not already an index with that time though
 	displayObj[BCScore] = newObj;
