@@ -86,7 +86,7 @@ function csvLoad(data, target, callback) {
 		// put in position, DAT, time, distance, name, category (m/f/age), run/walk/cycle, link to record, date
 		// although run/walk/cycle should be different forms and different tables?
 		resStr += "<table>\r\n"+
-					"<tr><th>Position</th><th>BCScore</th><th>Name</th><th>Time (hh:mm:ss)</th><th>Distance (km)</th><th>Elevation (m)</th><th>Category</th><th>Date</th><th>Link</th></tr>\r\n";
+					"<tr><th>Position</th><th class=\"pointer\" title=\"Beer Coaster Score is calculated to take distance, time and elevation into account.\">BCScore</th><th>Name</th><th>Time (hh:mm:ss)</th><th>Distance (km)</th><th>Elevation (m)</th><th>Category</th><th>Date</th><th>Link</th></tr>\r\n";
 					
 		ordered.forEach(setRes);
 					
@@ -176,9 +176,8 @@ function prepRes(csvRow) {
 	console.log("workStart: " + workStart);
 	var workSecond = (workStart/resElevation);
 	console.log("workSecond: " + workSecond);
-	var resScore = (workSecond*1000);
+	var resScore = Math.round(workSecond * 100000000000)/100;
 	console.log("resScore: " + resScore);
-	
 	
 	/*
 	var resGain = 1+(resElevation/workDistance);
@@ -188,9 +187,9 @@ function prepRes(csvRow) {
 
 	newObj.DAT = datResult;
 	*/
-	newObj.BCScore = resScore;
+	newObj["BCScore"] = resScore;
 	// now put the associated data into an array, with the DAT time as its index
 	// change this to check that there's not already an index with that time though
-	displayObj[BCScore] = newObj;
+	displayObj[resScore] = newObj;
 	
 }
