@@ -112,3 +112,7 @@
 	tr.odd {
 		background-color:#f2ec6d;
 	}
+	
+	th.pointer {
+		cursor:pointer;
+	}
