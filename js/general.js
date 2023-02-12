@@ -86,7 +86,7 @@ function csvLoad(data, target, callback) {
 		// put in position, DAT, time, distance, name, category (m/f/age), run/walk/cycle, link to record, date
 		// although run/walk/cycle should be different forms and different tables?
 		resStr += "<table>\r\n"+
-					"<tr><th>Position</th><th>DAT (hh:mm:ss)</th><th>Name</th><th>Time (hh:mm:ss)</th><th>Distance (km)</th><th>Elevation (m)</th><th>Category</th><th>Date</th><th>Link</th></tr>\r\n";
+					"<tr><th>Position</th><th>BCScore</th><th>Name</th><th>Time (hh:mm:ss)</th><th>Distance (km)</th><th>Elevation (m)</th><th>Category</th><th>Date</th><th>Link</th></tr>\r\n";
 					
 		ordered.forEach(setRes);
 					
@@ -111,7 +111,7 @@ function setRes(ordKey) {
 	}
 		
 	var ordRes = displayObj[ordKey];
-	resStr += "<tr class='"+rowCol+"'><td>"+posCount+"</td><td>"+ordRes["DAT"]+"</td><td>"+ordRes["Runner Name"]+"</td><td class='cen'>"+ordRes["Time (hh:mm:ss)"]+"</td><td class='cen'>"+ordRes["Distance (km)"]+"</td><td class='cen'>"+ordRes["Elevation (m)"]+"</td><td> - - </td><td> --- </td><td> ---- </td></tr>";
+	resStr += "<tr class='"+rowCol+"'><td>"+posCount+"</td><td>"+ordRes["BCScore"]+"</td><td>"+ordRes["Runner Name"]+"</td><td class='cen'>"+ordRes["Time (hh:mm:ss)"]+"</td><td class='cen'>"+ordRes["Distance (km)"]+"</td><td class='cen'>"+ordRes["Elevation (m)"]+"</td><td> - - </td><td> --- </td><td> ---- </td></tr>";
 	posCount++;
 }
 
@@ -134,6 +134,11 @@ function prepRes(csvRow) {
 	// now we have resArr which *should* be in the same order as resIndexes, so we *should* be able to assign them as index elements to a new array.
 	// we can then use those to work out the DAT
 	// and then we can use the DAT as the index to put this array into a new array
+	
+	// we're now replacing DAT with BCScore (Beer Coaster Score)
+	// this is  ((Pace/Distance) / Elevation) * 1,000
+	// the result should be a single digit (with a couple of decimal places) score, the lower the better.
+	
 	var resLen = resArr.length;
 	var i = 0;
 	var resHead;
@@ -161,13 +166,31 @@ function prepRes(csvRow) {
 	var totalSeconds = (timeHour+timeMinute)+timeSeconds;
 	
 	var workDistance = resDistance*1000;
+	
+	// we now have the time in seconds, and the distance in metres.
+	
+	// work out the pace
+	var workPace = (totalSeconds/workDistance);
+	console.log("workPace: " + workPace);
+	var workStart = (workPace/workDistance);
+	console.log("workStart: " + workStart);
+	var workSecond = (workStart/resElevation);
+	console.log("workSecond: " + workSecond);
+	var resScore = (workSecond*1000);
+	console.log("workScore: " + workScore);
+	
+	
+	/*
 	var resGain = 1+(resElevation/workDistance);
 	var resTime = totalSeconds/resGain;
 
 	var datResult = new Date(resTime * 1000).toISOString().slice(11, 19);
 
 	newObj.DAT = datResult;
+	*/
+	newObj.BCScore = workScore;
 	// now put the associated data into an array, with the DAT time as its index
 	// change this to check that there's not already an index with that time though
-	displayObj[datResult] = newObj;
+	displayObj[BCScore] = newObj;
+	
 }
