@@ -1,13 +1,20 @@
 @charset "utf-8";
 /* CSS Document */
 	body, h1, h2, h3 {
-		font-family:Verdana, Geneva, sans-serif; margin:0px; padding:0px;	
+		font-family:Verdana, Geneva, sans-serif; margin:0px; padding:0px;
+		background-color:#000;
 	}
-	
+	body {background-image:url(/img/background.jpg); background-repeat:repeat-y;}
+	em {
+		font-style:normal; font-weight:bold;
+	}
+	h2, h3 {
+		background-color:#fff;
+	}
 	
 	div#wrapper {
 		width:80%; margin-left:10%; 
-		margin-top:30px;
+		margin-top:30px; min-width:760px;
 	}
 	div#header_top {
 		background-color:#000;
@@ -17,13 +24,13 @@
 		margin-left:10px; margin-top:10px; float:left;
 	}
 	div#header_top h2 {
-		margin-left:40px; float:left; color:#f6eb13; font-weight:normal; margin-top:115px; font-size:24px;
+		margin-left:40px; float:left; color:#f6eb13; font-weight:normal; margin-top:115px; font-size:24px; background-color:#000;
 	}
 	div#header_strap {
 		background-color:#fff; width:100%; text-align:center; padding:10px; float:none;
 	}
 	div#header_strap h3 {
-		font-size:26px;	font-weight:normal;
+		font-size:22px;	font-weight:normal; background-color:#fff;
 	}
 	
 	
@@ -39,6 +46,14 @@
 	}
 	div#menu li a {
 		text-decoration:none; color:#f6eb13;
+	}
+	
+	div#page {
+		background-color:#fff;
+	}
+	
+	div#page h2, dix#page h3 {
+		font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 	}
 	
 	div#footer {
@@ -72,7 +87,7 @@
 	}
 
 	div#stages {
-		background-color:#edeab9; width:300px;
+		background-color:#fff; width:300px; border-right:1px #999 solid;
 	}
 	div#stages a {
 		text-decoration: none;
@@ -91,10 +106,10 @@
 	}
 	
 	div.stage_chart {
-		text-align:center; width:800px; margin-top:50px; border-top:1px solid #000; padding-top:20px;
+		text-align:center; width:800px; margin-top:50px; border-top:1px solid #999; padding-top:20px;
 	}
 	div.stage_chart a {
-		text-decoration:none; color:#000; font-weight:bold; font-size:12pt;
+		text-decoration:none; color:#b5ac00; font-weight:bold; font-size:12pt;
 	}
 
 	div#stage_content p {
