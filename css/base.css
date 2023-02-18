@@ -13,8 +13,8 @@
 	}
 	
 	div#wrapper {
-		width:80%; margin-left:10%; 
-		margin-top:30px; min-width:760px;
+		width:1200px; margin-left:5%; 
+		margin-top:30px;
 	}
 	div#header_top {
 		background-color:#000;
@@ -27,7 +27,7 @@
 		margin-left:40px; float:left; color:#f6eb13; font-weight:normal; margin-top:115px; font-size:24px; background-color:#000;
 	}
 	div#header_strap {
-		background-color:#fff; width:100%; text-align:center; padding:10px; float:none;
+		background-color:#fff; width:1180px; text-align:center; padding:10px; float:none;
 	}
 	div#header_strap h3 {
 		font-size:22px;	font-weight:normal; background-color:#fff;
@@ -114,6 +114,20 @@
 
 	div#stage_content p {
 		width:800px;
+	}
+	
+	div#footer {
+		width:100%; background-color:#000; float:none; height:auto; margin:0px; 
+		padding-top:10px; padding-bottom:10px;
+	}
+	div#footer ul {
+		background-color:#000; list-style:none; margin:0px; padding:0px;
+	}
+	div#footer li {
+		margin-left:30px; color:#f6eb13; display: inline-block; font-size:14px;
+	}
+	div#footer li a {
+		text-decoration:none; color:#f6eb13;
 	}
 	
 	
