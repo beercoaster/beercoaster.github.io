@@ -86,7 +86,7 @@ function csvLoad(data, target, callback) {
 		// put in position, DAT, time, distance, name, category (m/f/age), run/walk/cycle, link to record, date
 		// although run/walk/cycle should be different forms and different tables?
 		resStr += "<table>\r\n"+
-					"<tr><th>Position</th><th class=\"pointer\" title=\"Beer Coaster Score is calculated to take distance, time and elevation into account.\">BCScore</th><th>Name</th><th>Time (hh:mm:ss)</th><th>Distance (km)</th><th>Elevation (m)</th><th>Category</th><th>Date</th><th>Link</th></tr>\r\n";
+					"<tr><th>#</th><th class=\"pointer\" title=\"Beer Coaster Score is calculated to take distance, time and elevation into account.\">BCS</th><th>Name</th><th>Time (hh:mm:ss)</th><th>Dist. (km)</th><th>Elev. (m)</th><th>Cat.</th><th>Date</th><th>Link</th></tr>\r\n";
 					
 		ordered.forEach(setRes);
 					
