@@ -384,8 +384,9 @@ function errorCB(err) {
 
 // Callback function when the transaction is success.
 function successCB() {
-	var db = window.openDatabase("Database", "1.0", "TestDatabase", 200000);
-	db.transaction(queryDB, errorCB);
+//	var db = window.openDatabase("Database", "1.0", "TestDatabase", 200000);
+//	db.transaction(queryDB, errorCB);
+	console.log("db transaction successful");
 }
 
 
