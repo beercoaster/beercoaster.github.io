@@ -437,7 +437,25 @@ function csvSQLLoad(data, target, callback) {
 		csvData.forEach(prepResEW);
 		
 		
-		console.log("displayObjEW: "+JSON.stringify(displayObjEW));
+		//console.log("displayObjEW: "+JSON.stringify(displayObjEW));
+		
+		dbEW.transaction(function(tx) {
+			
+			transaction.executeSql('SELECT * FROM ewResults;', [],
+			
+				function(transaction, result) {
+			
+					if (result != null && result.rows != null) {
+						for (var i = 0; i < result.rows.length; i++) {
+							var row = result.rows.item(i);
+							console.log(row.data);
+						}
+					}
+				}, 
+			errorCB, successCB);
+		});
+		
+		
 		/*
 		dbEW.transaction(function(tx) {
 			tx.executeSql('SELECT numeric FROM keys ORDER BY numeric', [], querySuccess);
