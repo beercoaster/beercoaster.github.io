@@ -441,7 +441,7 @@ function csvSQLLoad(data, target, callback) {
 		
 		dbEW.transaction(function(tx) {
 			
-			tx.executeSql('SELECT * FROM ewResults;', [],
+			tx.executeSql('SELECT data FROM ewResults ORDER BY data ASC;', [],
 			
 				function(transaction, result) {
 			
