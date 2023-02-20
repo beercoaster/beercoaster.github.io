@@ -273,6 +273,11 @@ function csvLoadEW(data, target, callback) {
 		/// now to sort the array, which apparantly you shouldn't do because why would you be doing so ?!>
 		var ordered = Object.keys(displayObjEW).sort();
 		
+		
+		dbEW.transaction(function(tx) {
+			tx.executeSql('SELECT numeric FROM keys ORDER BY numeric', [], querySuccess);
+		});
+		
 
 		resStrEW = "<h3>Results:</h3>\r\n ";
 		// put in position, DAT, time, distance, name, category (m/f/age), run/walk/cycle, link to record, date
@@ -292,6 +297,10 @@ function csvLoadEW(data, target, callback) {
 	  }
 	xmlhttp.open("GET",data,true);
 	xmlhttp.send();	
+}
+
+function querySuccess(tx, results) {
+	console.log("DB Entries: " + results.rows.length);
 }
 
 
@@ -380,6 +389,7 @@ function prepResEW(csvRow) {
 	// So here is where we insert the keys into the SQL database
 	var sqlStr = "INSERT INTO keys(numeric) VALUES("+resScore+")";
 	console.log("sqlStr: "+sqlStr);
+	dbEW = openDatabase('mydb', '1.0', 'ew leg results database', 2*1024*1024);
 	dbEW.transaction(function(tx) {
 		tx.executeSql(sqlStr);
 	});
