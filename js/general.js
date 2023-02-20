@@ -388,10 +388,6 @@ function successCB() {
 	db.transaction(queryDB, errorCB);
 }
 
-function createDB(){
-	dbEW = window.openDatabase("BCDatabase", "1.0", "resultsDatabase", 200000);
-	//db.transaction(executeQuery, errorCB, successCB);
-}  
 
 function createTableEW(tx) {
         tx.executeSql('DROP TABLE IF EXISTS ewResults');
@@ -433,7 +429,7 @@ function csvSQLLoad(data, target, callback) {
 		// then we also put that new array into the display array
 
 		// set up the database
-		createDB();
+		dbEW = window.openDatabase("BCDatabase", "1.0", "resultsDatabase", 200000);
 		// create the table 
 		dbEW.transaction(createTable, errorCB, successCB);
 		
