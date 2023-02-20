@@ -250,7 +250,7 @@ function csvLoadEW(data, target, callback) {
 		// create an sqlite database for the keys
 		dbEW = openDatabase('mydb', '1.0', 'ew leg results database', 2*1024*1024);
 		dbEW.transaction(function(tx) {
-			tx.executeSql('CREATE TABLE keys (id unique, numeric)');
+			tx.executeSql('CREATE TABLE keys (numeric)');
 		});
 		
 		
@@ -378,7 +378,7 @@ function prepResEW(csvRow) {
 	// at this point, displayObjEW *should* be an array of objects, but seems instead to be an object.
 	
 	// So here is where we insert the keys into the SQL database
-	var sqlStr = "INSERT INTO keys(id,numeric) VALUES(1,"+resScore+")";
+	var sqlStr = "INSERT INTO keys(numeric) VALUES("+resScore+")";
 	console.log("sqlStr: "+sqlStr);
 	dbEW.transaction(function(tx) {
 		tx.executeSql(sqlStr);
