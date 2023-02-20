@@ -250,7 +250,7 @@ function csvLoadEW(data, target, callback) {
 		// create an sqlite database for the keys
 		dbEW = openDatabase('mydb', '1.0', 'ew leg results database', 2*1024*1024);
 		dbEW.transaction(function(tx) {
-			tx.executeSql('CREATE TABLE keys (id unique, number)');
+			tx.executeSql('CREATE TABLE keys (id unique, numeric)');
 		});
 		
 		
@@ -379,7 +379,7 @@ function prepResEW(csvRow) {
 	
 	// So here is where we insert the keys into the SQL database
 	dbEW.transaction(function(tx) {
-		tx.executeSql('INSERT INTO keys (id,number) VALUES (1,?)',resScore)
+		tx.executeSql('INSERT INTO keys (id,numeric) VALUES (1,'+resScore+')')
 	});
 }
 
