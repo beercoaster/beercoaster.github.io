@@ -437,7 +437,9 @@ function csvSQLLoad(data, target, callback) {
 		csvData.forEach(prepResEW);
 		
 		
-		//console.log("displayObjEW: "+JSON.stringify(displayObjEW));
+		resStrEW = "<h3>Results:</h3>\r\n ";
+		resStrEW += "<table>\r\n"+
+					"<tr><th>#</th><th class=\"pointer\" title=\"Beer Coaster Score is calculated to take distance, time and elevation into account.\">BCS</th><th>Name</th><th>Time (hh:mm:ss)</th><th>Dist. (km)</th><th>Elev. (m)</th><th>Cat.</th><th>Date</th><th>Link</th></tr>\r\n";
 		
 		dbEW.transaction(function(tx) {
 			
@@ -449,28 +451,28 @@ function csvSQLLoad(data, target, callback) {
 						for (var i = 0; i < result.rows.length; i++) {
 							var row = result.rows.item(i);
 							console.log(row.data);
+							setResEW(row.data);
 						}
 					}
 				}, 
 			errorCB, successCB);
 		});
 		
-		
+		resStrEW += "</table>\r\n";
 		/*
 		dbEW.transaction(function(tx) {
 			tx.executeSql('SELECT numeric FROM keys ORDER BY numeric', [], querySuccess);
 		});
 		
 
-		resStrEW = "<h3>Results:</h3>\r\n ";
+		
 		// put in position, DAT, time, distance, name, category (m/f/age), run/walk/cycle, link to record, date
 		// although run/walk/cycle should be different forms and different tables?
-		resStrEW += "<table>\r\n"+
-					"<tr><th>#</th><th class=\"pointer\" title=\"Beer Coaster Score is calculated to take distance, time and elevation into account.\">BCS</th><th>Name</th><th>Time (hh:mm:ss)</th><th>Dist. (km)</th><th>Elev. (m)</th><th>Cat.</th><th>Date</th><th>Link</th></tr>\r\n";
+		
 
 		ordered.forEach(setResEW);
 					
-		resStrEW += "</table>\r\n";
+		
 		*/
 	//	return xmlhttp.responseText;	
 		document.getElementById(target).innerHTML=resStrEW;
