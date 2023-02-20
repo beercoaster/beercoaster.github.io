@@ -395,7 +395,10 @@ function createTableEW(tx) {
         tx.executeSql('DROP TABLE IF EXISTS ewResults');
         tx.executeSql('CREATE TABLE IF NOT EXISTS ewResults (data)');
 }
- 
+
+
+
+
 ////////
 function csvSQLLoad(data, target, callback) {
 	resStrEW = "";
@@ -475,7 +478,10 @@ function csvSQLLoad(data, target, callback) {
 					
 		
 		*/
-	//	return xmlhttp.responseText;	
+	//	return xmlhttp.responseText;
+		
+		console.log("resStr: "+resStrEW);
+	
 		document.getElementById(target).innerHTML=resStrEW;
 		// obviously this will need to be something different so that we can get the other results for the route
 		if(callback) callback();
