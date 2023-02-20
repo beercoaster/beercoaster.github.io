@@ -312,6 +312,7 @@ function setResEW(ordKey) {
 		rowCol = "odd";
 	}
 	var ordRes = displayObjEW[ordKey];
+	console.log("runner: "+ordRes["Runner Name"]);
 	resStrEW += "<tr class='"+rowCol+"'><td>"+posCountEW+"</td><td>"+ordRes["BCScore"]+"</td><td>"+ordRes["Runner Name"]+"</td><td class='cen'>"+ordRes["Time (hh:mm:ss)"]+"</td><td class='cen'>"+ordRes["Distance (km)"]+"</td><td class='cen'>"+ordRes["Elevation (m)"]+"</td><td>"+ordRes["Age/Category"]+"</td><td>"+ordRes["Date of Run"]+"</td><td><a href=\""+ordRes["Run Link (eg Strava)"]+"\" target=\"_blank\">link</a></td></tr>";
 	posCountEW++;
 }
