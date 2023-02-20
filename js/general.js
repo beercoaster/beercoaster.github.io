@@ -437,7 +437,7 @@ function csvSQLLoad(data, target, callback) {
 		csvData.forEach(prepResEW);
 		
 		
-		console.log("displayObjEW: "+displayObjEW);
+		console.log("displayObjEW: "+JSON.stringify(displayObjEW));
 		/*
 		dbEW.transaction(function(tx) {
 			tx.executeSql('SELECT numeric FROM keys ORDER BY numeric', [], querySuccess);
