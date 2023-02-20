@@ -435,7 +435,7 @@ function csvSQLLoad(data, target, callback) {
 		// set up the database
 		createDB();
 		// create the table 
-		db.transaction(createTable, errorCB, successCB);
+		dbEW.transaction(createTable, errorCB, successCB);
 		
 		
 		csvData.forEach(prepResEW);
