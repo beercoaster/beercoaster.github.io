@@ -378,8 +378,10 @@ function prepResEW(csvRow) {
 	// at this point, displayObjEW *should* be an array of objects, but seems instead to be an object.
 	
 	// So here is where we insert the keys into the SQL database
+	var sqlStr = "INSERT INTO keys(id,numeric) VALUES(1,"+resScore+")";
+	console.log("sqlStr: "+sqlStr);
 	dbEW.transaction(function(tx) {
-		tx.executeSql('INSERT INTO keys (id,numeric) VALUES (1,'+resScore+')')
+		tx.executeSql(sqlStr);
 	});
 }
 
