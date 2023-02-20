@@ -28,6 +28,8 @@ function pLoad(page, callback) {
 }
 */
 
+
+
 var arrCount = 0;
 var posCount = 1;
 var resIndexes;
@@ -215,12 +217,12 @@ var newArrEW = [];
 var displayObjEW = {};
 var resStrEW = "";
 var rowColEW = "";
+var dbEW;
 
 function csvLoadEW(data, target, callback) {
 	resStrEW = "";
 	resArrayEW = [];
-	displayObjEW = {};
-	postCountEW = 1;
+	posCountEW = 1;
 	arrCountEW = 0;
 	resColEW = "";
 	resIndexEW = "";
@@ -245,6 +247,13 @@ function csvLoadEW(data, target, callback) {
 				That way, this function can be used for other data loading tasks */
 			/* don't do this though as the page won't have properly loaded when this is called, so the target element won't be there */
 		
+		// create an sqlite database for the keys
+		dbEW = openDatabase('mydb', '1.0', 'ew leg results database', 2*1024*1024);
+		dbEW.transaction(function(tx) {
+			tx.executeSql('CREATE TABLE keys (id unique, number)');
+		});
+		
+		
 		/* so instead of returning it now, we want to manipulate the incoming csv data */
 		var csvData = xmlhttp.responseText.split('\r\n');
 		var resHeader = csvData.shift();
@@ -256,16 +265,21 @@ function csvLoadEW(data, target, callback) {
 		csvData.forEach(prepRowEW);
 		
 		
+		console.log("displayObjEW: "+displayObjEW);
+		
+		
+		
 		//now we should have displayArr with all the data in the right order
 		/// now to sort the array, which apparantly you shouldn't do because why would you be doing so ?!>
 		var ordered = Object.keys(displayObjEW).sort();
-		// now we have a list of the DAT keys in the right order, we can build the return string, using those keys to get the runner data
+		
+
 		resStrEW = "<h3>Results:</h3>\r\n ";
 		// put in position, DAT, time, distance, name, category (m/f/age), run/walk/cycle, link to record, date
 		// although run/walk/cycle should be different forms and different tables?
 		resStrEW += "<table>\r\n"+
 					"<tr><th>#</th><th class=\"pointer\" title=\"Beer Coaster Score is calculated to take distance, time and elevation into account.\">BCS</th><th>Name</th><th>Time (hh:mm:ss)</th><th>Dist. (km)</th><th>Elev. (m)</th><th>Cat.</th><th>Date</th><th>Link</th></tr>\r\n";
-					
+
 		ordered.forEach(setResEW);
 					
 		resStrEW += "</table>\r\n";
@@ -289,7 +303,7 @@ function setResEW(ordKey) {
 		rowCol = "odd";
 	}
 	var ordRes = displayObjEW[ordKey];
-	resStrEW += "<tr class='"+rowCol+"'><td>"+posCount+"</td><td>"+ordRes["BCScore"]+"</td><td>"+ordRes["Runner Name"]+"</td><td class='cen'>"+ordRes["Time (hh:mm:ss)"]+"</td><td class='cen'>"+ordRes["Distance (km)"]+"</td><td class='cen'>"+ordRes["Elevation (m)"]+"</td><td>"+ordRes["Age/Category"]+"</td><td>"+ordRes["Date of Run"]+"</td><td><a href=\""+ordRes["Run Link (eg Strava)"]+"\" target=\"_blank\">link</a></td></tr>";
+	resStrEW += "<tr class='"+rowCol+"'><td>"+posCountEW+"</td><td>"+ordRes["BCScore"]+"</td><td>"+ordRes["Runner Name"]+"</td><td class='cen'>"+ordRes["Time (hh:mm:ss)"]+"</td><td class='cen'>"+ordRes["Distance (km)"]+"</td><td class='cen'>"+ordRes["Elevation (m)"]+"</td><td>"+ordRes["Age/Category"]+"</td><td>"+ordRes["Date of Run"]+"</td><td><a href=\""+ordRes["Run Link (eg Strava)"]+"\" target=\"_blank\">link</a></td></tr>";
 	posCountEW++;
 }
 
@@ -355,18 +369,18 @@ function prepResEW(csvRow) {
 	var workSecond = (workStart/resElevation);
 //	console.log("workSecond: " + workSecond);
 	var resScore = Math.round(workSecond * 100000000000)/100;
-	
-	/*
-	var resGain = 1+(resElevation/workDistance);
-	var resTime = totalSeconds/resGain;
 
-	var datResult = new Date(resTime * 1000).toISOString().slice(11, 19);
-
-	newObj.DAT = datResult;
-	*/
 	newObj["BCScore"] = resScore;
+
 	// now put the associated data into an array, with the DAT time as its index
 	// change this to check that there's not already an index with that time though
 	displayObjEW[resScore] = newObj;
+	// at this point, displayObjEW *should* be an array of objects, but seems instead to be an object.
 	
+	// So here is where we insert the keys into the SQL database
+	dbEW.transaction(function(tx) {
+		tx.executeSql('INSERT INTO keys (id,number) VALUES (1,?)',resScore)
+	});
 }
+
+
