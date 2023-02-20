@@ -393,9 +393,9 @@ function createDB(){
 	//db.transaction(executeQuery, errorCB, successCB);
 }  
 
-function createTable(tx, tableName) {
-        tx.executeSql('DROP TABLE IF EXISTS '+tableName);
-        tx.executeSql('CREATE TABLE IF NOT EXISTS '+tableName+' (data)');
+function createTableEW(tx) {
+        tx.executeSql('DROP TABLE IF EXISTS ewResults');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS ewResults (data)');
 }
  
 ////////
@@ -435,7 +435,7 @@ function csvSQLLoad(data, target, callback) {
 		// set up the database
 		createDB();
 		// create the table 
-		createTable(tx, 'EWResults');
+		db.transaction(createTable, errorCB, successCB);
 		
 		
 		csvData.forEach(prepResEW);
