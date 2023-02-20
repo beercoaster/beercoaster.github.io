@@ -330,6 +330,151 @@ function prepRowEW(csvRow) {
 	arrCountEW++
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//
+//				Restarting this all from scratch because it's become an absolute mess thanks to JavaScript's crappy sort stuff
+//
+//				So now we're going to shift over to importing the CSV file into a SQLite database, and pulling the results from there
+//				
+//				The question really though is whether to prep the data first, then put it into a table
+//				Or to put it all into a table in a straigh CSV import, and then add the extra columns that we want for BCScore, 
+//				and go through all the results working out the BCScore and adding it to the row
+//
+//				It seems that the most sensible way to do it is to read in the CSV file, then sort the BCScore data, and enter that into the table
+//				The alternative is to import the csv to a table, update the table to add the BCScore column, then UPDATE the table/data to fill in the BCScore data
+//				This second way seems to make more sense, but not sure how easy/difficult it would be.
+//					Down side, can't import a CSV string to a SQLite table. Only a local file.
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
+Database Stuff
+*/
+
+function queryDB(tx) {
+	tx.executeSql('SELECT * FROM TestTable', [], querySuccess, errorCB);
+}
+
+function querySuccess(tx, results) {
+	var len = results.rows.length;
+	window.alert("There are " + len + " rows of records in the database.");
+	for (var i=0; i<len; i++){
+		document.writeln("row = " + i + " ID = " + results.rows.item(i).id + " Data = " + results.rows.item(i).data+"<br/>");
+	}        
+}
+
+//Callback function when the transaction is failed.
+function errorCB(err) {
+	console.log("Error occured while executing SQL: "+err.code);
+}
+
+// Callback function when the transaction is success.
+function successCB() {
+	var db = window.openDatabase("Database", "1.0", "TestDatabase", 200000);
+	db.transaction(queryDB, errorCB);
+}
+
+function createDB(){
+	dbEW = window.openDatabase("BCDatabase", "1.0", "resultsDatabase", 200000);
+	//db.transaction(executeQuery, errorCB, successCB);
+}  
+
+function createTable(tx, tableName) {
+        tx.executeSql('DROP TABLE IF EXISTS '+tableName);
+        tx.executeSql('CREATE TABLE IF NOT EXISTS '+tableName+' (data)');
+}
+ 
+////////
+function csvSQLLoad(data, target, callback) {
+	resStrEW = "";
+	resArrayEW = [];
+	posCountEW = 1;
+	arrCountEW = 0;
+	resColEW = "";
+	resIndexEW = "";
+	
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	  xmlhttp=new XMLHttpRequest();
+	  }
+	else
+	  {// code for IE6, IE5
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	xmlhttp.onreadystatechange=function()
+	  {
+	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+
+		
+		var dbEW;
+		/* so instead of returning it now, we want to manipulate the incoming csv data */
+		var csvData = xmlhttp.responseText.split('\r\n');
+		var resHeader = csvData.shift();
+		resIndexesEW = resHeader.split(',');
+		var resLeng = csvData.length;
+		// now for each of the csvData elements, which are the individual runner results, we prepRow to get the data into 
+		// associated indexes, and with the DAT time.
+		// then we also put that new array into the display array
+
+		// set up the database
+		createDB();
+		// create the table 
+		createTable(tx, 'EWResults');
+		
+		
+		csvData.forEach(prepResEW);
+		
+		/*
+		console.log("displayObjEW: "+displayObjEW);
+		
+		
+		
+		//now we should have displayArr with all the data in the right order
+		/// now to sort the array, which apparantly you shouldn't do because why would you be doing so ?!>
+		var ordered = Object.keys(displayObjEW).sort();
+		
+		
+		dbEW.transaction(function(tx) {
+			tx.executeSql('SELECT numeric FROM keys ORDER BY numeric', [], querySuccess);
+		});
+		
+
+		resStrEW = "<h3>Results:</h3>\r\n ";
+		// put in position, DAT, time, distance, name, category (m/f/age), run/walk/cycle, link to record, date
+		// although run/walk/cycle should be different forms and different tables?
+		resStrEW += "<table>\r\n"+
+					"<tr><th>#</th><th class=\"pointer\" title=\"Beer Coaster Score is calculated to take distance, time and elevation into account.\">BCS</th><th>Name</th><th>Time (hh:mm:ss)</th><th>Dist. (km)</th><th>Elev. (m)</th><th>Cat.</th><th>Date</th><th>Link</th></tr>\r\n";
+
+		ordered.forEach(setResEW);
+					
+		resStrEW += "</table>\r\n";
+		*/
+	//	return xmlhttp.responseText;	
+		document.getElementById(target).innerHTML=resStrEW;
+		// obviously this will need to be something different so that we can get the other results for the route
+		if(callback) callback();
+		}
+	  }
+	xmlhttp.open("GET",data,true);
+	xmlhttp.send();	
+}
+
 function prepResEW(csvRow) {
 	var resArr = csvRow.split(',');2
 	// now we have resArr which *should* be in the same order as resIndexes, so we *should* be able to assign them as index elements to a new array.
@@ -379,6 +524,8 @@ function prepResEW(csvRow) {
 //	console.log("workSecond: " + workSecond);
 	var resScore = Math.round(workSecond * 100000000000)/100;
 
+
+	/*
 	newObj["BCScore"] = resScore;
 
 	// now put the associated data into an array, with the DAT time as its index
@@ -393,6 +540,8 @@ function prepResEW(csvRow) {
 	dbEW.transaction(function(tx) {
 		tx.executeSql(sqlStr);
 	});
+	*/
+	// NOW PUT THE RESULT ROW INTO A TABLE
+	
+	
 }
-
-
