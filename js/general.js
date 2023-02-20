@@ -434,7 +434,6 @@ function csvSQLLoad(data, target, callback) {
 		// create the table 
 		dbEW.transaction(createTableEW, errorCB, successCB);
 		
-		
 		csvData.forEach(prepResEW);
 		
 		/*
@@ -539,6 +538,8 @@ function prepResEW(csvRow) {
 	});
 	*/
 	// NOW PUT THE RESULT ROW INTO A TABLE
-	
+	dbEW.transaction(function() {
+		tx.executeSql('INSERT INTO ewResults(data) VALUES('+resScore+')');
+	}, errorCB, successCB);
 	
 }
