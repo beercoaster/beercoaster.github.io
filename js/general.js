@@ -436,16 +436,9 @@ function csvSQLLoad(data, target, callback) {
 		
 		csvData.forEach(prepResEW);
 		
-		/*
+		
 		console.log("displayObjEW: "+displayObjEW);
-		
-		
-		
-		//now we should have displayArr with all the data in the right order
-		/// now to sort the array, which apparantly you shouldn't do because why would you be doing so ?!>
-		var ordered = Object.keys(displayObjEW).sort();
-		
-		
+		/*
 		dbEW.transaction(function(tx) {
 			tx.executeSql('SELECT numeric FROM keys ORDER BY numeric', [], querySuccess);
 		});
@@ -520,8 +513,6 @@ function prepResEW(csvRow) {
 //	console.log("workSecond: " + workSecond);
 	var resScore = Math.round(workSecond * 100000000000)/100;
 
-
-	/*
 	newObj["BCScore"] = resScore;
 
 	// now put the associated data into an array, with the DAT time as its index
@@ -529,14 +520,6 @@ function prepResEW(csvRow) {
 	displayObjEW[resScore] = newObj;
 	// at this point, displayObjEW *should* be an array of objects, but seems instead to be an object.
 	
-	// So here is where we insert the keys into the SQL database
-	var sqlStr = "INSERT INTO keys(numeric) VALUES("+resScore+")";
-	console.log("sqlStr: "+sqlStr);
-	dbEW = openDatabase('mydb', '1.0', 'ew leg results database', 2*1024*1024);
-	dbEW.transaction(function(tx) {
-		tx.executeSql(sqlStr);
-	});
-	*/
 	// NOW PUT THE RESULT ROW INTO A TABLE
 	dbEW = window.openDatabase("BCDatabase", "1.0", "resultsDatabase", 200000);
 	dbEW.transaction(function(tx) {
