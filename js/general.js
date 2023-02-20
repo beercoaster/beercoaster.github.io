@@ -538,7 +538,7 @@ function prepResEW(csvRow) {
 	});
 	*/
 	// NOW PUT THE RESULT ROW INTO A TABLE
-	dbEW.transaction(function() {
+	dbEW.transaction(function(tx) {
 		tx.executeSql('INSERT INTO ewResults(data) VALUES('+resScore+')');
 	}, errorCB, successCB);
 	
