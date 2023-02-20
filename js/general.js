@@ -538,6 +538,7 @@ function prepResEW(csvRow) {
 	});
 	*/
 	// NOW PUT THE RESULT ROW INTO A TABLE
+	dbEW = window.openDatabase("BCDatabase", "1.0", "resultsDatabase", 200000);
 	dbEW.transaction(function(tx) {
 		tx.executeSql('INSERT INTO ewResults(data) VALUES('+resScore+')');
 	}, errorCB, successCB);
