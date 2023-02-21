@@ -303,21 +303,6 @@ function querySuccess(tx, results) {
 	console.log("DB Entries: " + results.rows.length);
 }
 
-
-
-function setResEW(ordKey) {
-	if(posCountEW % 2 == 0) {
-		rowCol = "even";
-	} else {
-		rowCol = "odd";
-	}
-	var ordRes = displayObjEW[ordKey];
-	console.log("runner: "+ordRes["Runner Name"]);
-	resStrEW += "<tr class='"+rowCol+"'><td>"+posCountEW+"</td><td>"+ordRes["BCScore"]+"</td><td>"+ordRes["Runner Name"]+"</td><td class='cen'>"+ordRes["Time (hh:mm:ss)"]+"</td><td class='cen'>"+ordRes["Distance (km)"]+"</td><td class='cen'>"+ordRes["Elevation (m)"]+"</td><td>"+ordRes["Age/Category"]+"</td><td>"+ordRes["Date of Run"]+"</td><td><a href=\""+ordRes["Run Link (eg Strava)"]+"\" target=\"_blank\">link</a></td></tr>";
-	posCountEW++;
-}
-
-
 function prepRowEW(csvRow) {
 	/******************************************************************************************/
 	/* Now here is a weird and wonderful function to sort an array of csv data strings.
@@ -466,10 +451,9 @@ function csvSQLLoad(data, target, callback) {
 						}
 					}
 				}, 
-			errorCB, successCBEW(target));
+			errorCB, successCB);
 		});
 		
-		//resStrEW += "</table>\r\n";
 		/*
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -485,15 +469,42 @@ function csvSQLLoad(data, target, callback) {
 		*/
 	//	return xmlhttp.responseText;
 		
-		//console.log("resStr: "+resStrEW);
-	
-		//document.getElementById(target).innerHTML=resStrEW;
-		// obviously this will need to be something different so that we can get the other results for the route
+		wait(5000);
+		
+		
+		resStrEW += "</table>\r\n";
+		console.log("resStr: "+resStrEW);
+		console.log("db success call");
+		document.getElementById(target).innerHTML=resStrEW;
+		
+		
+		
+		
 		if(callback) callback();
 		}
 	  }
 	xmlhttp.open("GET",data,true);
 	xmlhttp.send();	
+}
+
+function wait(ms){
+   var start = new Date().getTime();
+   var end = start;
+   while(end < start + ms) {
+     end = new Date().getTime();
+  }
+}
+
+function setResEW(ordKey) {
+	if(posCountEW % 2 == 0) {
+		rowCol = "even";
+	} else {
+		rowCol = "odd";
+	}
+	var ordRes = displayObjEW[ordKey];
+	console.log("runner: "+ordRes["Runner Name"]);
+	resStrEW += "<tr class='"+rowCol+"'><td>"+posCountEW+"</td><td>"+ordRes["BCScore"]+"</td><td>"+ordRes["Runner Name"]+"</td><td class='cen'>"+ordRes["Time (hh:mm:ss)"]+"</td><td class='cen'>"+ordRes["Distance (km)"]+"</td><td class='cen'>"+ordRes["Elevation (m)"]+"</td><td>"+ordRes["Age/Category"]+"</td><td>"+ordRes["Date of Run"]+"</td><td><a href=\""+ordRes["Run Link (eg Strava)"]+"\" target=\"_blank\">link</a></td></tr>";
+	posCountEW++;
 }
 
 function prepResEW(csvRow) {
