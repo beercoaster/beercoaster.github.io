@@ -351,17 +351,6 @@ function prepRowEW(csvRow) {
 Database Stuff
 */
 
-function queryDB(tx) {
-	tx.executeSql('SELECT * FROM TestTable', [], querySuccess, errorCB);
-}
-
-function querySuccess(tx, results) {
-	var len = results.rows.length;
-	window.alert("There are " + len + " rows of records in the database.");
-	for (var i=0; i<len; i++){
-		document.writeln("row = " + i + " ID = " + results.rows.item(i).id + " Data = " + results.rows.item(i).data+"<br/>");
-	}        
-}
 
 //Callback function when the transaction is failed.
 function errorCB(err) {
@@ -375,21 +364,10 @@ function successCB() {
 	console.log("db transaction successful");
 }
 
-function successCBEW(target) {
-	// this is where the final EW results should be sorted, so where we add the end table string and send it to browser
-	resStrEW += "</table>\r\n";
-	console.log("resStr: "+resStrEW);
-	console.log("db success call");
-	document.getElementById(target).innerHTML=resStrEW;
-}
-
 function createTableEW(tx) {
         tx.executeSql('DROP TABLE IF EXISTS ewResults');
         tx.executeSql('CREATE TABLE IF NOT EXISTS ewResults (data)');
 }
-
-
-
 
 ////////
 function csvSQLLoad(data, target, callback) {
@@ -413,18 +391,12 @@ function csvSQLLoad(data, target, callback) {
 	  {
 	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
-
-		
 		var dbEW;
 		/* so instead of returning it now, we want to manipulate the incoming csv data */
 		var csvData = xmlhttp.responseText.split('\r\n');
 		var resHeader = csvData.shift();
 		resIndexesEW = resHeader.split(',');
 		var resLeng = csvData.length;
-		// now for each of the csvData elements, which are the individual runner results, we prepRow to get the data into 
-		// associated indexes, and with the DAT time.
-		// then we also put that new array into the display array
-
 		// set up the database
 		dbEW = window.openDatabase("BCDatabase", "1.0", "resultsDatabase", 200000);
 		// create the table 
@@ -465,24 +437,6 @@ function csvSQLLoad(data, target, callback) {
 				}, 
 			errorCB, successCB);
 		});
-		
-		/*
-
-		////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//
-		//
-		//
-		//					THE PROBLEM WE HAVE HERE IS THAT THE RETURN STRING IS BEING SENT TO THE BROWSER BEFORE IT'S FINISHED BEING BUILT
-		//
-		//					so change the successCB call here to a different function that sends the data to the browser.
-		//
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-		
-		*/
-	//	return xmlhttp.responseText;
-		
-		//document.getElementById(target).innerHTML=resStrEW;
-	
 		if(callback) callback();
 		}
 	  }
@@ -490,36 +444,10 @@ function csvSQLLoad(data, target, callback) {
 	xmlhttp.send();	
 }
 
-function wait(ms){
-   var start = new Date().getTime();
-   var end = start;
-   while(end < start + ms) {
-     end = new Date().getTime();
-  }
-}
 
-function setResEW(ordKey) {
-	if(posCountEW % 2 == 0) {
-		rowCol = "even";
-	} else {
-		rowCol = "odd";
-	}
-	var ordRes = displayObjEW[ordKey];
-	console.log("runner: "+ordRes["Runner Name"]);
-	resStrEW += "<tr class='"+rowCol+"'><td>"+posCountEW+"</td><td>"+ordRes["BCScore"]+"</td><td>"+ordRes["Runner Name"]+"</td><td class='cen'>"+ordRes["Time (hh:mm:ss)"]+"</td><td class='cen'>"+ordRes["Distance (km)"]+"</td><td class='cen'>"+ordRes["Elevation (m)"]+"</td><td>"+ordRes["Age/Category"]+"</td><td>"+ordRes["Date of Run"]+"</td><td><a href=\""+ordRes["Run Link (eg Strava)"]+"\" target=\"_blank\">link</a></td></tr>";
-	posCountEW++;
-}
 
 function prepResEW(csvRow) {
 	var resArr = csvRow.split(',');2
-	// now we have resArr which *should* be in the same order as resIndexes, so we *should* be able to assign them as index elements to a new array.
-	// we can then use those to work out the DAT
-	// and then we can use the DAT as the index to put this array into a new array
-	
-	// we're now replacing DAT with BCScore (Beer Coaster Score)
-	// this is  ((Pace/Distance) / Elevation) * 1,000
-	// the result should be a single digit (with a couple of decimal places) score, the lower the better.
-	
 	var resLen = resArr.length;
 	var i = 0;
 	var resHead;
@@ -547,26 +475,16 @@ function prepResEW(csvRow) {
 	var totalSeconds = (timeHour+timeMinute)+timeSeconds;
 	
 	var workDistance = resDistance*1000;
-	
-	// we now have the time in seconds, and the distance in metres.
-	
 	// work out the pace
 	var workPace = (totalSeconds/workDistance);
-//	console.log("workPace: " + workPace);
 	var workStart = (workPace/workDistance);
-//	console.log("workStart: " + workStart);
 	var workSecond = (workStart/resElevation);
-//	console.log("workSecond: " + workSecond);
 	var resScore = Math.round(workSecond * 100000000000)/100;
 
 	newObj["BCScore"] = resScore;
 
-	// now put the associated data into an array, with the DAT time as its index
-	// change this to check that there's not already an index with that time though
 	displayObjEW[resScore] = newObj;
-	// at this point, displayObjEW *should* be an array of objects, but seems instead to be an object.
-	
-	// NOW PUT THE RESULT ROW INTO A TABLE
+
 	dbEW = window.openDatabase("BCDatabase", "1.0", "resultsDatabase", 200000);
 	dbEW.transaction(function(tx) {
 		tx.executeSql('INSERT INTO ewResults(data) VALUES('+resScore+')');
