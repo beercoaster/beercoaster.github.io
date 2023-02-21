@@ -93,6 +93,10 @@
 		text-decoration: none;
 	}
 	
+	div#stages img {
+		margin-left:10px; margin-bottom:10px;
+	}
+	
 	div#stage_content {
 		padding-left:20px; width:800px;
 	}
