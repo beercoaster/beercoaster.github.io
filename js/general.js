@@ -390,6 +390,12 @@ function successCB() {
 	console.log("db transaction successful");
 }
 
+function successCBEW(target) {
+	// this is where the final EW results should be sorted, so where we add the end table string and send it to browser
+	resStrEW += "</table>\r\n";
+	console.log("resStr: "+resStrEW);
+	document.getElementById(target).innerHTML=resStrEW;
+}
 
 function createTableEW(tx) {
         tx.executeSql('DROP TABLE IF EXISTS ewResults');
@@ -459,28 +465,26 @@ function csvSQLLoad(data, target, callback) {
 						}
 					}
 				}, 
-			errorCB, successCB);
+			errorCB, successCBEW(target));
 		});
 		
-		resStrEW += "</table>\r\n";
+		//resStrEW += "</table>\r\n";
 		/*
-		dbEW.transaction(function(tx) {
-			tx.executeSql('SELECT numeric FROM keys ORDER BY numeric', [], querySuccess);
-		});
-		
 
-		
-		// put in position, DAT, time, distance, name, category (m/f/age), run/walk/cycle, link to record, date
-		// although run/walk/cycle should be different forms and different tables?
-		
-
-		ordered.forEach(setResEW);
-					
+		////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//
+		//
+		//
+		//					THE PROBLEM WE HAVE HERE IS THAT THE RETURN STRING IS BEING SENT TO THE BROWSER BEFORE IT'S FINISHED BEING BUILT
+		//
+		//					so change the successCB call here to a different function that sends the data to the browser.
+		//
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 		
 		*/
 	//	return xmlhttp.responseText;
 		
-		console.log("resStr: "+resStrEW);
+		//console.log("resStr: "+resStrEW);
 	
 		document.getElementById(target).innerHTML=resStrEW;
 		// obviously this will need to be something different so that we can get the other results for the route
