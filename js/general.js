@@ -460,6 +460,7 @@ function csvSQLLoad(data, target, callback) {
 						}
 						resStrEW += "</table>\r\n";
 						console.log("resStr: "+resStrEW);
+						document.getElementById(target).innerHTML=resStrEW;
 					}
 				}, 
 			errorCB, successCB);
@@ -480,7 +481,7 @@ function csvSQLLoad(data, target, callback) {
 		*/
 	//	return xmlhttp.responseText;
 		
-		document.getElementById(target).innerHTML=resStrEW;
+		//document.getElementById(target).innerHTML=resStrEW;
 	
 		if(callback) callback();
 		}
