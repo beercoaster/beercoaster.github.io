@@ -394,6 +394,7 @@ function successCBEW(target) {
 	// this is where the final EW results should be sorted, so where we add the end table string and send it to browser
 	resStrEW += "</table>\r\n";
 	console.log("resStr: "+resStrEW);
+	console.log("db success call");
 	document.getElementById(target).innerHTML=resStrEW;
 }
 
@@ -486,7 +487,7 @@ function csvSQLLoad(data, target, callback) {
 		
 		//console.log("resStr: "+resStrEW);
 	
-		document.getElementById(target).innerHTML=resStrEW;
+		//document.getElementById(target).innerHTML=resStrEW;
 		// obviously this will need to be something different so that we can get the other results for the route
 		if(callback) callback();
 		}
