@@ -447,8 +447,19 @@ function csvSQLLoad(data, target, callback) {
 						for (var i = 0; i < result.rows.length; i++) {
 							var row = result.rows.item(i);
 							console.log(row.data);
-							setResEW(row.data);
+							ordKey = row.data;
+								if(posCountEW % 2 == 0) {
+									rowCol = "even";
+								} else {
+									rowCol = "odd";
+								}
+								var ordRes = displayObjEW[ordKey];
+								console.log("runner: "+ordRes["Runner Name"]);
+								resStrEW += "<tr class='"+rowCol+"'><td>"+posCountEW+"</td><td>"+ordRes["BCScore"]+"</td><td>"+ordRes["Runner Name"]+"</td><td class='cen'>"+ordRes["Time (hh:mm:ss)"]+"</td><td class='cen'>"+ordRes["Distance (km)"]+"</td><td class='cen'>"+ordRes["Elevation (m)"]+"</td><td>"+ordRes["Age/Category"]+"</td><td>"+ordRes["Date of Run"]+"</td><td><a href=\""+ordRes["Run Link (eg Strava)"]+"\" target=\"_blank\">link</a></td></tr>";
+								posCountEW++;
 						}
+						resStrEW += "</table>\r\n";
+						console.log("resStr: "+resStrEW);
 					}
 				}, 
 			errorCB, successCB);
@@ -469,17 +480,8 @@ function csvSQLLoad(data, target, callback) {
 		*/
 	//	return xmlhttp.responseText;
 		
-		wait(5000);
-		
-		
-		resStrEW += "</table>\r\n";
-		console.log("resStr: "+resStrEW);
-		console.log("db success call");
 		document.getElementById(target).innerHTML=resStrEW;
-		
-		
-		
-		
+	
 		if(callback) callback();
 		}
 	  }
