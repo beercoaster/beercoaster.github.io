@@ -1,3 +1,5 @@
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //
@@ -15,6 +17,27 @@
 //					Down side, can't import a CSV string to a SQLite table. Only a local file.
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+var arrCountEW = 0;
+var posCountEW = 1;
+var resIndexesEW;
+var resArrayEW = [];
+var newArrEW = [];
+var displayObjEW = {};
+var resStrEW = "";
+var rowColEW = "";
+var dbEW;
+
+var arrCountWE = 0;
+var posCountWE = 1;
+var resIndexesWE;
+var resArrayWE = [];
+var newArrWE = [];
+var displayObjWE = {};
+var resStrWE = "";
+var rowColWE = "";
+var dbWE;
+
 
 /*
 Database Stuff
