@@ -133,6 +133,9 @@
 	div#footer li a {
 		text-decoration:none; color:#f6eb13;
 	}
+	div#footer p {
+		font-size:14px; color:#f6eb13; margin-left:10px;
+	}
 	
 	
 	table { border:0px; margin:0px; padding:0px;}
